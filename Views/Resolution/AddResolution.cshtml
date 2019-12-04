@@ -1,0 +1,69 @@
+@model Resolution
+
+@{
+    ViewData["Title"] = "Dodaj uchwałę";
+}
+
+
+<div class="section both-sections" >
+    <div class="left-side-section">
+        <img src="~/images/bookshelf.png">
+    </div>
+    <div id="right-side-section">
+    @using (Html.BeginForm())
+    {
+        <form onload=t() asp-controller="Resolution" asp-action="AddResolution" method="post" enctype="multipart/form-data">
+                <h2>Dodaj Uchwałę</h2>
+                <ul class="add-resolution-list">
+                    <li>
+                        <label for="name"></label>
+                        <input name="name" id="name" class="input-fields" placeholder="Nazwa uchwały">
+                    </li>
+                    <li>
+                        <label for="description"></label>
+                        <textarea name="description" id="description" class="input-fields" placeholder="Opis uchwały"></textarea>
+                    </li>
+                    <li>
+                        <label for="date"></label>
+                        <input type="date" name="dateOfAdopting" id="dateofAdopting" class="input-fields">
+                    </li>
+                    <li>
+                        <label for="file"></label>
+                        <input type="file" name="file" id="file" class="input-fields">
+                    </li>
+                    <li>
+                        <input type="submit" name="submit-button" placeholder="Dodaj uchwałę">
+                    </li>
+                </ul>
+            </form>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+
+function t()
+{
+    document.getElementsByTagName("form")[0].setAttribute("enctype","multipart/form-data");
+    
+    dateTime = new Date();
+    day = dateTime.getDay();
+    month = dateTime.getMonth();
+    year = dateTime.getFullYear();
+    
+    if (day < 10)
+    {
+        day = day+10;
+    }
+
+    if(month < 10)
+    {
+        month = "0"+month
+    }
+
+    document.querySelectorAll('input')[1].value = year + "-" + month + "-" + day;
+}
+
+t();
+
+</script>

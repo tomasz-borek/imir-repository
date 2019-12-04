@@ -1,0 +1,44 @@
+@model IEnumerable<Resolution>
+
+<div class="repository-navigation">
+    <a asp-controller="Resolution" asp-action="AddResolution" id="add-resolution-button">Nowa uchwała? Dodaj ją!</a>
+</div>
+
+
+<table id="resolution-table">
+	<tr id="table-headers">
+		<th class="table-header">Nazwa uchwały</th>
+		<th class="table-header">Opis uchwały</th>
+		<th class="table-header">Data</th>
+		<th>Plik</th>
+	</tr>
+	<tr class="inputs-row">
+		<td class="search-column"><input type="text" placeholder="szukaj po nazwie..." onkeyup="nameSearch()" id="name-input" /></td>
+		<td class="search-column"><input type="text" placeholder="szukaj po opisie..." onkeyup="descriptionSearch()" id="description-input"/></td>
+		<td class="search-column"><input type="text" placeholder="szukaj po dacie..." onkeyup="dateSearch()" id="date-input" /></td>
+		<td class="data-column"></td>
+	</tr>
+	@foreach (var item in Model)
+    {
+    var filePath = item.ResolutionFilePath;
+    <tr class="data-row">
+        <td class="data-column">@Html.DisplayFor(modelItem => item.Name)</td>
+        <td class="data-column">@Html.DisplayFor(modelItem => item.Description)</td>
+        <td class="data-column date-column">@Html.DisplayFor(modelItem => item.DateOfAdopting)</td>
+        <td>
+            <img src="~/images/pdg-logo.png" height="50px" width="50px"/>
+            <br>
+            <a href="@filePath">Plik uchwały</a>
+        </td>
+    </tr>
+    }
+</table>  
+
+<script>
+    var dates = document.getElementsByClassName("date-column");
+    for (i=0; i<dates.length; i++)
+    {
+    	var str = dates[i].innerText;
+    	dates[i].innerText = str.split(" ")[0];
+    }
+</script>
